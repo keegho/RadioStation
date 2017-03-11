@@ -22,7 +22,20 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        setupMediaPlayer()
+        if radioStation.imgURL != "" {
+            radioStationImage.af_setImage(withURL: URL(string: radioStation.imgURL)!)
+        }
+        
+        categoryLabel.text = radioStation.categoryTitle
+        
+        if Radioplayer.sharedInstance.currentlyPLaying() {
+            
+            playPauseButton.setTitle("Pause", for: .normal)
+        } else {
+            
+            playPauseButton.setTitle("Play", for: .normal)
+        }
+        
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, with: .allowAirPlay)
@@ -35,6 +48,13 @@ class MainViewController: UIViewController {
         
         navigationItem.title = radioStation.name
         navigationController?.navigationBar.isHidden = false
+        
+        radioStationImage.layer.cornerRadius = radioStationImage.frame.width/2
+        radioStationImage.layer.borderWidth = 1.0
+        radioStationImage.layer.borderColor = UIColor(red:0.60, green:0.07, blue:0.71, alpha:1.0).cgColor
+
+        setupMediaPlayer()
+        
         
         
     }
@@ -81,16 +101,30 @@ class MainViewController: UIViewController {
     func setupMediaPlayer() {
         
         if NSClassFromString("MPNowPlayingInfoCenter") != nil {
-            let image:UIImage = #imageLiteral(resourceName: "radioTest") // comment this if you don't use an image
-            let albumArt = MPMediaItemArtwork(boundsSize: image.size, requestHandler: { (size) -> UIImage in
-                return image
-            }) // comment this if you don't use an image
-            let songInfo = [
-                MPMediaItemPropertyTitle: radioStation.name,
-                MPMediaItemPropertyArtist: "87,8fm",
-                MPMediaItemPropertyArtwork: albumArt // comment this if you don't use an image
-            ] as [String : Any]
-            MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
+            
+            if let image:UIImage = radioStationImage.image { // comment this if you don't use an image
+                let albumArt = MPMediaItemArtwork(boundsSize: image.size, requestHandler: { (size) -> UIImage in
+                    return image
+                }) // comment this if you don't use an image
+                
+                let songInfo = [
+                    MPMediaItemPropertyTitle: radioStation.name,
+                    MPMediaItemPropertyArtist: radioStation.categoryTitle,
+                    MPMediaItemPropertyArtwork: albumArt // comment this if you don't use an image
+                    ] as [String : Any]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
+                
+            } else {
+                
+                let songInfo = [
+                    MPMediaItemPropertyTitle: radioStation.name,
+                    MPMediaItemPropertyArtist: radioStation.categoryTitle,
+                   // MPMediaItemPropertyArtwork: albumArt // comment this if you don't use an image
+                    ] as [String : Any]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = songInfo
+                
+            }
+            
         }
     }
 

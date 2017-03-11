@@ -142,6 +142,8 @@ class StationsTableViewController: UITableViewController {
         cell.titleLabel.text = radioStations[indexPath.row].name
         if radioStations[indexPath.row].imgURL != "" {
             cell.bgImage.af_setImage(withURL: URL(string:radioStations[indexPath.row].imgURL)!)
+        } else {
+            cell.bgImage.image = #imageLiteral(resourceName: "radioAvatar")
         }
         cell.countryLabel.text = radioStations[indexPath.row].country
         cell.numberOfListeners.text = String(radioStations[indexPath.row].listeners)
@@ -150,6 +152,7 @@ class StationsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Radioplayer.sharedInstance.pause()
         performSegue(withIdentifier: "radioDetail", sender: radioStations[indexPath.row])
     }
  

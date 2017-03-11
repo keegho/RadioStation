@@ -115,7 +115,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqQ-gw-M2j">
-                                <rect key="frame" x="103" y="428" width="114" height="74"/>
+                                <rect key="frame" x="103" y="384" width="114" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="Qab-oZ-7SQ"/>
                                 </constraints>
@@ -127,14 +127,14 @@
                                     <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fA0-01-2IU"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioAvatar" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-8t-ZWS">
-                                <rect key="frame" x="30" y="147" width="261" height="235"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iT4-8t-ZWS">
+                                <rect key="frame" x="30" y="103" width="260" height="260"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="iT4-8t-ZWS" secondAttribute="height" multiplier="248:197" constant="-34.837563451776646" id="kOL-nQ-PSW"/>
+                                    <constraint firstAttribute="width" secondItem="iT4-8t-ZWS" secondAttribute="height" multiplier="248:197" constant="-67.309644670050773" id="kOL-nQ-PSW"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTI-26-cQH">
-                                <rect key="frame" x="62" y="88" width="196" height="31"/>
+                                <rect key="frame" x="62" y="44" width="196" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="XTC-tx-Iyw"/>
                                 </constraints>
@@ -155,7 +155,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="iT4-8t-ZWS" secondAttribute="trailing" constant="13" id="0sR-7G-lzp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iT4-8t-ZWS" secondAttribute="trailing" constant="14" id="0sR-7G-lzp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Aw2-3O-Mhx" secondAttribute="trailing" constant="121" id="BbH-Dq-Pb5"/>
                             <constraint firstItem="iT4-8t-ZWS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MCw-ox-a0S"/>
                             <constraint firstItem="ZTI-26-cQH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="46" id="QS9-xu-KWw"/>
@@ -163,7 +163,7 @@
                             <constraint firstItem="iT4-8t-ZWS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="14" id="Vgk-YW-Fo7"/>
                             <constraint firstItem="Aw2-3O-Mhx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="121" id="ZZj-Zz-8jD"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Aw2-3O-Mhx" secondAttribute="bottom" constant="8" id="cUv-fr-X8f"/>
-                            <constraint firstItem="kqQ-gw-M2j" firstAttribute="top" secondItem="iT4-8t-ZWS" secondAttribute="bottom" constant="46" id="iJu-iY-Kxf"/>
+                            <constraint firstItem="kqQ-gw-M2j" firstAttribute="top" secondItem="iT4-8t-ZWS" secondAttribute="bottom" constant="21" id="iJu-iY-Kxf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ZTI-26-cQH" secondAttribute="trailing" constant="46" id="kqg-eQ-lQh"/>
                             <constraint firstItem="kqQ-gw-M2j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="87" id="lar-J0-Htq"/>
                             <constraint firstItem="ZTI-26-cQH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lxk-rq-fZI"/>
@@ -204,9 +204,6 @@
             <point key="canvasLocation" x="-781.875" y="122.53521126760563"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="radioAvatar" width="247" height="248"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="js5-wX-4Yj"/>
     </inferredMetricsTieBreakers>

@@ -27,9 +27,11 @@ class Radioplayer {
     }
     
     func pause() {
-        player = AVPlayer(url: URL(string: urlString)!)
-        player.pause()
-        isPLaying = false
+        if player != nil && urlString != "" {
+            player = AVPlayer(url: URL(string: urlString)!)
+            player.pause()
+            isPLaying = false
+        }
     }
     
     
