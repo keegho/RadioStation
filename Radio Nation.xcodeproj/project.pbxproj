@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1913B79C1E74D71D00A71624 /* Flags in Resources */ = {isa = PBXBuildFile; fileRef = 1913B79B1E74D71D00A71624 /* Flags */; };
+		1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C01E771AC300005947 /* FavTableViewController.swift */; };
+		1977A1C31E771B0000005947 /* FavTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C21E771B0000005947 /* FavTableViewCell.swift */; };
 		19A005431E73579400682915 /* Radiostation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A005421E73579400682915 /* Radiostation.swift */; };
 		19A005451E7359FE00682915 /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19A005441E7359FE00682915 /* ApiKeys.plist */; };
 		19A005471E735A7600682915 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A005461E735A7600682915 /* Helper.swift */; };
 		19A005491E73954100682915 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 19A005481E73954100682915 /* .gitignore */; };
+		19A0054B1E74BDBD00682915 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A0054A1E74BDBD00682915 /* FiltersViewController.swift */; };
 		19FD79091E731BE30031AD36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD79081E731BE30031AD36 /* AppDelegate.swift */; };
 		19FD790B1E731BE30031AD36 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD790A1E731BE30031AD36 /* MainViewController.swift */; };
 		19FD790E1E731BE30031AD36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19FD790C1E731BE30031AD36 /* Main.storyboard */; };
@@ -25,10 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1913B79B1E74D71D00A71624 /* Flags */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Flags; sourceTree = "<group>"; };
+		1977A1C01E771AC300005947 /* FavTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewController.swift; sourceTree = "<group>"; };
+		1977A1C21E771B0000005947 /* FavTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewCell.swift; sourceTree = "<group>"; };
 		19A005421E73579400682915 /* Radiostation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radiostation.swift; sourceTree = "<group>"; };
 		19A005441E7359FE00682915 /* ApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ApiKeys.plist; sourceTree = "<group>"; };
 		19A005461E735A7600682915 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		19A005481E73954100682915 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		19A0054A1E74BDBD00682915 /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		19FD79051E731BE30031AD36 /* Radio Nation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Radio Nation.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19FD79081E731BE30031AD36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19FD790A1E731BE30031AD36 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +90,7 @@
 		19FD79071E731BE30031AD36 /* Radio Nation */ = {
 			isa = PBXGroup;
 			children = (
+				1913B79B1E74D71D00A71624 /* Flags */,
 				19FD79081E731BE30031AD36 /* AppDelegate.swift */,
 				19FD790A1E731BE30031AD36 /* MainViewController.swift */,
 				19FD790C1E731BE30031AD36 /* Main.storyboard */,
@@ -94,6 +103,9 @@
 				19A005421E73579400682915 /* Radiostation.swift */,
 				19A005441E7359FE00682915 /* ApiKeys.plist */,
 				19A005461E735A7600682915 /* Helper.swift */,
+				19A0054A1E74BDBD00682915 /* FiltersViewController.swift */,
+				1977A1C01E771AC300005947 /* FavTableViewController.swift */,
+				1977A1C21E771B0000005947 /* FavTableViewCell.swift */,
 			);
 			path = "Radio Nation";
 			sourceTree = "<group>";
@@ -180,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1913B79C1E74D71D00A71624 /* Flags in Resources */,
 				19A005491E73954100682915 /* .gitignore in Resources */,
 				19FD79131E731BE30031AD36 /* LaunchScreen.storyboard in Resources */,
 				19A005451E7359FE00682915 /* ApiKeys.plist in Resources */,
@@ -249,7 +262,10 @@
 				19FD79241E732E170031AD36 /* StationTableViewCell.swift in Sources */,
 				19FD791E1E731D380031AD36 /* Radioplayer.swift in Sources */,
 				19FD790B1E731BE30031AD36 /* MainViewController.swift in Sources */,
+				19A0054B1E74BDBD00682915 /* FiltersViewController.swift in Sources */,
 				19FD79091E731BE30031AD36 /* AppDelegate.swift in Sources */,
+				1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */,
+				1977A1C31E771B0000005947 /* FavTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
