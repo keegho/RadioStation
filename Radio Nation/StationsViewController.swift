@@ -1,17 +1,24 @@
 //
-//  StationsTableViewController.swift
+//  StationsViewController.swift
 //  Radio Nation
 //
-//  Created by Kegham Karsian on 3/10/17.
+//  Created by Kegham Karsian on 3/14/17.
 //  Copyright © 2017 appologi. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 import AlamofireImage
+import CoreData
 
-class StationsTableViewController: UITableViewController {
+class StationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+
+    @IBOutlet var buttomBar: UIToolbar!
+    @IBOutlet var tableView: UITableView!
+    @IBOutlet var pauseButton: UIBarButtonItem!
+    @IBOutlet var playButton: UIBarButtonItem!
+    
     var station = Radiostation()
     var radioStations = [Radiostation]()
     var filteredCategory = "All"
@@ -25,8 +32,8 @@ class StationsTableViewController: UITableViewController {
     var loadedImageName = String()
     
     var activityIndicator: UIActivityIndicatorView!
-
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,22 +51,30 @@ class StationsTableViewController: UITableViewController {
         for i in 0 ..< longFlagsNamesArray.count {
             flagsNamesArray.append(longFlagsNamesArray[i].lastPathComponent)
         }
+        buttomBar.backgroundColor = UIColor.white
+        if !(Radioplayer.sharedInstance.currentlyPLaying()) {
+            buttomBar.isHidden = true
+        } else {
+            
+            pauseButton.isEnabled = true
+            playButton.isEnabled = false
+        }
         
         //Long Tap Guesture for add to fav
         let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addToFav))
         longPressGesture.minimumPressDuration = 0.5
-       // longPressGesture.delegate = self
+        // longPressGesture.delegate = self
         self.tableView.addGestureRecognizer(longPressGesture)
         
         let userDefaults = UserDefaults()
         //Checking if there is previous saved filtered data
-//        if let filteredCountryCodeTest = userDefaults.object(forKey: "filteredCountry") as? String {
-//            filteredCountry = filteredCountryCodeTest
-//        }
-//        if let filteredCategoryTest = userDefaults.object(forKey: "filteredCategory") as? String {
-//            filteredCategory = filteredCategoryTest
-//        }
-
+        //        if let filteredCountryCodeTest = userDefaults.object(forKey: "filteredCountry") as? String {
+        //            filteredCountry = filteredCountryCodeTest
+        //        }
+        //        if let filteredCategoryTest = userDefaults.object(forKey: "filteredCategory") as? String {
+        //            filteredCategory = filteredCategoryTest
+        //        }
+        
         radioStations.removeAll(keepingCapacity: true)
         
         //Nothing filtered
@@ -77,7 +92,7 @@ class StationsTableViewController: UITableViewController {
             
             loadStationsByCountry(page: page)
             filterStatus = 2
-        //Both filtered
+            //Both filtered
         } else {
             
         }
@@ -86,12 +101,29 @@ class StationsTableViewController: UITableViewController {
         userDefaults.set(filteredCountryCode, forKey: "filteredCountry")
         userDefaults.set(filteredCategory, forKey: "filteredCategory")
         
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if Radioplayer.sharedInstance.currentlyPLaying() {
+            
+            buttomBar.isHidden = false
+            pauseButton.isEnabled = true
+            playButton.isEnabled = false
+            
+        } else {
+            
+            pauseButton.isEnabled = false
+            playButton.isEnabled = true
+            buttomBar.isHidden = true
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,9 +131,20 @@ class StationsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func playButtonAction(_ sender: UIBarButtonItem) {
+        Radioplayer.sharedInstance.play()
+        playButton.isEnabled = false
+        pauseButton.isEnabled = true
+    }
+    @IBAction func pauseButtonAction(_ sender: UIBarButtonItem) {
+        Radioplayer.sharedInstance.pause()
+        pauseButton.isEnabled = false
+        playButton.isEnabled = true
+    }
+    
     func loadStationsByMostPopular(page: Int) {
         //DispatchQueue.main.async {
-            self.activityIndicator.startAnimating()
+        self.activityIndicator.startAnimating()
         //}
         
         station.popularStations(page: page, stationsLimitPerPage: 20) { (data, status, err, msg) in
@@ -193,7 +236,7 @@ class StationsTableViewController: UITableViewController {
                 self.activityIndicator.stopAnimating()
             }
         }
-
+        
     }
     
     func loadStationsByCategory() {
@@ -380,24 +423,26 @@ class StationsTableViewController: UITableViewController {
                 self.activityIndicator.stopAnimating()
             }
         })
-
-    }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return radioStations.count
+        
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "stationCell", for: indexPath) as! StationTableViewCell
+    
+    // MARK: - Table view data source
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return radioStations.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "stationCell", for: indexPath) as! StationsTableViewCell
         
         editCellView(cell: cell)
         
@@ -413,33 +458,30 @@ class StationsTableViewController: UITableViewController {
         
         cell.countryLabel.text = radioStations[indexPath.row].country
         cell.numberOfListeners.text = String(radioStations[indexPath.row].listeners)
-
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Radioplayer.sharedInstance.pause()
         loadedImageName = (radioStations[indexPath.row].country).lowercased() + ".png"
         performSegue(withIdentifier: "radioDetail", sender: radioStations[indexPath.row])
     }
     
-//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        
-//    }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    /* override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+     
+     let addFavIcon = UITableViewRowAction(style: .normal, title: "Favorite") { (action,index) -> Void in
+     
+     
+     }
+     let iconImage = UIImageView(image: #imageLiteral(resourceName: "star"))
+     iconImage.contentMode = .scaleAspectFill
+     addFavIcon.backgroundColor = UIColor(patternImage: iconImage.image!)
+     return [addFavIcon]
+     } */
     
-        let addFavIcon = UITableViewRowAction(style: .normal, title: "Favorite") { (action,index) -> Void in
-           
-            
-        }
-        let iconImage = UIImageView(image: #imageLiteral(resourceName: "star"))
-        iconImage.contentMode = .scaleAspectFill
-        addFavIcon.backgroundColor = UIColor(patternImage: iconImage.image!)
-        return [addFavIcon]
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = radioStations.count - 1
         if indexPath.row == lastElement {
             page += 1
@@ -459,11 +501,11 @@ class StationsTableViewController: UITableViewController {
     }
     
     
-    func editCellView(cell:StationTableViewCell) {
+    func editCellView(cell:StationsTableViewCell) {
         
         cell.bgImage.layer.cornerRadius = cell.bgImage.frame.width/2
         //cell.bgImage.layer.borderWidth = 1.5
-       // cell.bgImage.layer.borderColor = UIColor(red:0.60, green:0.07, blue:0.71, alpha:1.0).cgColor
+        // cell.bgImage.layer.borderColor = UIColor(red:0.60, green:0.07, blue:0.71, alpha:1.0).cgColor
         cell.bgImage.clipsToBounds = true
         //        cell.barCategoryField.layer.cornerRadius = cell.barCategoryField.frame.width/2
         //        cell.barLogoImageView.layer.cornerRadius = cell.barLogoImageView.frame.width/2
@@ -474,6 +516,7 @@ class StationsTableViewController: UITableViewController {
         
     }
     
+    
     func addToFav(longPressureGesture: UILongPressGestureRecognizer) {
         
         let p = longPressureGesture.location(in: self.tableView)
@@ -482,51 +525,58 @@ class StationsTableViewController: UITableViewController {
             print("Long press on table view, not row.")
         }
         else if (longPressureGesture.state == UIGestureRecognizerState.began) {
-            print("Long press on row, at \(indexPath!.row)")
+            let stationName = radioStations[indexPath!.row].name
+            let stationCountryCode = radioStations[indexPath!.row].country
+            let stationStream = radioStations[indexPath!.row].streamURL
+            let imageURL = radioStations[indexPath!.row].imgURL
+            let stationCategory = radioStations[indexPath!.row].categoryTitle
+            
+            addFavToDB(name: stationName, category: stationCategory, avatarURL: imageURL, countryCode: stationCountryCode, streamURL: stationStream)
+            
+            // print("Long press on row, at \(indexPath!.row)")
             
         }
     }
-
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
-    // MARK: - Navigation
+    //Create context for CoreData
+    func getContext () -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+    
+    
+    //Save station favorated to core data
+    func addFavToDB(name:String, category:String, avatarURL: String, countryCode:String, streamURL: String) {
+        
+        let context = getContext()
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Station", in: context)
+        let station = Station(entity: entity!, insertInto: context)
+        
+        station.avatarUrl = avatarURL
+        station.category = category
+        station.countrycode = countryCode
+        station.streamUrl = streamURL
+        station.name = name
+        
+        //        trans.setValue(name, forKey: "name")
+        //        trans.setValue(category, forKey: "category")
+        //        trans.setValue(avatarURL, forKey: "avatarUrl")
+        //        trans.setValue(countryCode, forKey: "countrycode")
+        //        trans.setValue(streamURL, forKey: "streamUrl")
+        
+        do {
+            try context.save()
+            print("Saved")
+        } catch let err as Error? {
+            print("Error not saved:", err!)
+        }
+    }
 
+
+
+    // MARK: - Navigation
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -539,6 +589,5 @@ class StationsTableViewController: UITableViewController {
             playerVC.flagImageString = loadedImageName
         }
     }
- 
 
 }

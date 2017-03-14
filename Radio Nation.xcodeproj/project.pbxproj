@@ -10,6 +10,10 @@
 		1913B79C1E74D71D00A71624 /* Flags in Resources */ = {isa = PBXBuildFile; fileRef = 1913B79B1E74D71D00A71624 /* Flags */; };
 		1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C01E771AC300005947 /* FavTableViewController.swift */; };
 		1977A1C31E771B0000005947 /* FavTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C21E771B0000005947 /* FavTableViewCell.swift */; };
+		1977A1C61E77344200005947 /* StationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C41E77344200005947 /* StationsModel.xcdatamodeld */; };
+		1977A1E91E77349100005947 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1977A1E81E77349100005947 /* CoreData.framework */; };
+		1992C0401E777C05006D880F /* StationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1992C03F1E777C05006D880F /* StationsViewController.swift */; };
+		1992C0421E777CB5006D880F /* StationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1992C0411E777CB5006D880F /* StationsTableViewCell.swift */; };
 		19A005431E73579400682915 /* Radiostation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A005421E73579400682915 /* Radiostation.swift */; };
 		19A005451E7359FE00682915 /* ApiKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19A005441E7359FE00682915 /* ApiKeys.plist */; };
 		19A005471E735A7600682915 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A005461E735A7600682915 /* Helper.swift */; };
@@ -23,8 +27,6 @@
 		19FD791C1E731D0D0031AD36 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FD791B1E731D0D0031AD36 /* AVFoundation.framework */; };
 		19FD791E1E731D380031AD36 /* Radioplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD791D1E731D380031AD36 /* Radioplayer.swift */; };
 		19FD79201E7320C10031AD36 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FD791F1E7320C10031AD36 /* MediaPlayer.framework */; };
-		19FD79221E732DEC0031AD36 /* StationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD79211E732DEC0031AD36 /* StationsTableViewController.swift */; };
-		19FD79241E732E170031AD36 /* StationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD79231E732E170031AD36 /* StationTableViewCell.swift */; };
 		23D1E4E2FBD83956B30A05E0 /* Pods_Radio_Nation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF85F166D93DEFC848303DA /* Pods_Radio_Nation.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,10 @@
 		1913B79B1E74D71D00A71624 /* Flags */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Flags; sourceTree = "<group>"; };
 		1977A1C01E771AC300005947 /* FavTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewController.swift; sourceTree = "<group>"; };
 		1977A1C21E771B0000005947 /* FavTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewCell.swift; sourceTree = "<group>"; };
+		1977A1C51E77344200005947 /* StationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StationsModel.xcdatamodel; sourceTree = "<group>"; };
+		1977A1E81E77349100005947 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1992C03F1E777C05006D880F /* StationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationsViewController.swift; sourceTree = "<group>"; };
+		1992C0411E777CB5006D880F /* StationsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationsTableViewCell.swift; sourceTree = "<group>"; };
 		19A005421E73579400682915 /* Radiostation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radiostation.swift; sourceTree = "<group>"; };
 		19A005441E7359FE00682915 /* ApiKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ApiKeys.plist; sourceTree = "<group>"; };
 		19A005461E735A7600682915 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -47,8 +53,6 @@
 		19FD791B1E731D0D0031AD36 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		19FD791D1E731D380031AD36 /* Radioplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Radioplayer.swift; sourceTree = "<group>"; };
 		19FD791F1E7320C10031AD36 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		19FD79211E732DEC0031AD36 /* StationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationsTableViewController.swift; sourceTree = "<group>"; };
-		19FD79231E732E170031AD36 /* StationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationTableViewCell.swift; sourceTree = "<group>"; };
 		3AF85F166D93DEFC848303DA /* Pods_Radio_Nation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Radio_Nation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95464AE84F5167EAF2AFB7EF /* Pods-Radio Nation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Radio Nation.release.xcconfig"; path = "Pods/Target Support Files/Pods-Radio Nation/Pods-Radio Nation.release.xcconfig"; sourceTree = "<group>"; };
 		F7ADE9C1338EECFB3A3F5E85 /* Pods-Radio Nation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Radio Nation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Radio Nation/Pods-Radio Nation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1977A1E91E77349100005947 /* CoreData.framework in Frameworks */,
 				19FD79201E7320C10031AD36 /* MediaPlayer.framework in Frameworks */,
 				19FD791C1E731D0D0031AD36 /* AVFoundation.framework in Frameworks */,
 				23D1E4E2FBD83956B30A05E0 /* Pods_Radio_Nation.framework in Frameworks */,
@@ -98,14 +103,15 @@
 				19FD79111E731BE30031AD36 /* LaunchScreen.storyboard */,
 				19FD79141E731BE30031AD36 /* Info.plist */,
 				19FD791D1E731D380031AD36 /* Radioplayer.swift */,
-				19FD79211E732DEC0031AD36 /* StationsTableViewController.swift */,
-				19FD79231E732E170031AD36 /* StationTableViewCell.swift */,
 				19A005421E73579400682915 /* Radiostation.swift */,
 				19A005441E7359FE00682915 /* ApiKeys.plist */,
 				19A005461E735A7600682915 /* Helper.swift */,
 				19A0054A1E74BDBD00682915 /* FiltersViewController.swift */,
 				1977A1C01E771AC300005947 /* FavTableViewController.swift */,
 				1977A1C21E771B0000005947 /* FavTableViewCell.swift */,
+				1977A1C41E77344200005947 /* StationsModel.xcdatamodeld */,
+				1992C03F1E777C05006D880F /* StationsViewController.swift */,
+				1992C0411E777CB5006D880F /* StationsTableViewCell.swift */,
 			);
 			path = "Radio Nation";
 			sourceTree = "<group>";
@@ -113,6 +119,7 @@
 		19FD791A1E731D0D0031AD36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1977A1E81E77349100005947 /* CoreData.framework */,
 				19FD791F1E7320C10031AD36 /* MediaPlayer.framework */,
 				19FD791B1E731D0D0031AD36 /* AVFoundation.framework */,
 				3AF85F166D93DEFC848303DA /* Pods_Radio_Nation.framework */,
@@ -257,11 +264,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				19A005431E73579400682915 /* Radiostation.swift in Sources */,
+				1977A1C61E77344200005947 /* StationsModel.xcdatamodeld in Sources */,
 				19A005471E735A7600682915 /* Helper.swift in Sources */,
-				19FD79221E732DEC0031AD36 /* StationsTableViewController.swift in Sources */,
-				19FD79241E732E170031AD36 /* StationTableViewCell.swift in Sources */,
+				1992C0421E777CB5006D880F /* StationsTableViewCell.swift in Sources */,
 				19FD791E1E731D380031AD36 /* Radioplayer.swift in Sources */,
 				19FD790B1E731BE30031AD36 /* MainViewController.swift in Sources */,
+				1992C0401E777C05006D880F /* StationsViewController.swift in Sources */,
 				19A0054B1E74BDBD00682915 /* FiltersViewController.swift in Sources */,
 				19FD79091E731BE30031AD36 /* AppDelegate.swift in Sources */,
 				1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */,
@@ -432,6 +440,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1977A1C41E77344200005947 /* StationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1977A1C51E77344200005947 /* StationsModel.xcdatamodel */,
+			);
+			currentVersion = 1977A1C51E77344200005947 /* StationsModel.xcdatamodel */;
+			name = StationsModel.xcdatamodeld;
+			path = ../StationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 19FD78FD1E731BE30031AD36 /* Project object */;
 }

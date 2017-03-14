@@ -10,6 +10,12 @@ import UIKit
 
 class FavTableViewCell: UITableViewCell {
 
+    @IBOutlet var flagImageView: UIImageView!
+    @IBOutlet var countryCodeLabel: UILabel!
+    @IBOutlet var stationCategoryLabel: UILabel!
+    @IBOutlet var avatarImage: UIImageView!
+    @IBOutlet var stationLabelName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -298,7 +298,7 @@ class FiltersViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         // Pass the selected object to the new view controller.
         
         if segue.identifier == "filtered" {
-            guard let stationsVC = segue.destination as? StationsTableViewController else {
+            guard let stationsVC = segue.destination as? StationsViewController else {
                 return
             }
             stationsVC.filteredCategory = categoryTextfield.text!
