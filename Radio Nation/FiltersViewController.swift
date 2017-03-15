@@ -191,6 +191,7 @@ class FiltersViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func filterAction(_ sender: UIButton) {
         
         if !(categoryTextfield.text?.isEmpty)! && !(countryTextField.text?.isEmpty)! {
+            radioStation.moreData = true
             performSegue(withIdentifier: "filtered", sender: nil)
         }
     }

@@ -25,6 +25,8 @@ class Radiostation {
     var categoryStrcut: Categories
     var countryStruct: Countries
     
+    var moreData = true
+    
     
     
     private var dribleApiKey: String
@@ -110,21 +112,28 @@ class Radiostation {
     //Get countries
     func countries(completion:@escaping (_ data:Any?, _ status:Bool, _ error:Error?, _ msg:String?)->()) {
         
-        let url = URL(string:"http://api.dirble.com/v2/countries?token=\(dribleApiKey)")
-        
-        Alamofire.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .validate(statusCode: 200..<300)
-            .responseJSON { (response) in
-                switch response.result {
-                case .success( _):
-                    print("Success")
-                    let jsonData = response.result.value
-                    completion(jsonData, true, nil, nil)
-                case .failure(let err):
-                    completion(nil, false, err, "Failed to fetch data")
-                    print("failed")
-                }
-        }
+        if moreData {
+            
+            let url = URL(string:"http://api.dirble.com/v2/countries?token=\(dribleApiKey)")
+            
+            Alamofire.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+                .validate(statusCode: 200..<300)
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success( _):
+                        print("Success")
+                        let jsonData = response.result.value
+                        completion(jsonData, true, nil, nil)
+                    case .failure(let err):
+                        completion(nil, false, err, "Failed to fetch data")
+                        print("failed")
+                    }
+            }
+        } //else {
+//            completion(nil, false, nil, "No more data available")
+//            print("No more data available")
+//            
+//        }
 
         
     }
@@ -153,34 +162,38 @@ class Radiostation {
     //Stations per country
     func countryStations(countryCode: String, page: Int, stationsLimitPerPage: Int, completion:@escaping (_ data:Any?, _ status:Bool, _ error:Error?, _ msg:String?)->() ) {
         
-        let url = URL(string:"http://api.dirble.com/v2/countries/\(countryCode)/stations?page=\(page)&per_page=\(stationsLimitPerPage)&token=\(dribleApiKey)")
-        
-        Alamofire.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
-            .validate(statusCode: 200..<300)
-            .responseJSON { (response) in
-                switch response.result {
-                case .success( _):
-                    print("Success")
-                    let jsonData = response.result.value
-                    completion(jsonData, true, nil, nil)
-                case .failure(let err):
-                    completion(nil, false, err, "Failed to fetch data")
-                    print("failed")
-                }
+     //   if moreData {
+            
+            let url = URL(string:"http://api.dirble.com/v2/countries/\(countryCode)/stations?page=\(page)&per_page=\(stationsLimitPerPage)&token=\(dribleApiKey)")
+            
+            Alamofire.request(url!, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil)
+                .validate(statusCode: 200..<300)
+                .responseJSON { (response) in
+                    switch response.result {
+                    case .success( _):
+                        print("Success")
+//                        if let jsonData = response.result.value {
+//                            completion(jsonData, true, nil, nil)
+//                        } else {
+//                            completion(nil, true, nil, "No more data")
+//                            self.moreData = false
+//                        }
+                        let jsonData = response.result.value
+                     
+                        completion(jsonData, true, nil, nil)
+   
+                    case .failure(let err):
+                        completion(nil, false, err, "Failed to fetch data")
+                        print("failed")
+                    }
+           // }
         }
 
     }
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
 

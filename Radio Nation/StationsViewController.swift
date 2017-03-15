@@ -28,6 +28,10 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     var filterStatus = 0 //Zero means all
     var page = 1
     
+  //  var moreData = true
+    
+    var countBefore = Int()
+    
     var errorMsg = String()
     
     var flagsNamesArray = [String]()
@@ -120,6 +124,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(_ animated: Bool) {
         
+       // station.moreData = true
         if Radioplayer.sharedInstance.currentlyPLaying() {
             
             buttomBar.isHidden = false
@@ -159,6 +164,12 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         station.popularStations(page: page, stationsLimitPerPage: 20) { (data, status, err, msg) in
             if status {
                 
+                if data == nil {
+                    
+                    self.station.moreData = false
+                    print("return")
+                    return
+                }
                 
                 let swiftyData = JSON(data)
                 //print(swiftyData)
@@ -166,6 +177,11 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                 guard let stationsData = swiftyData.array else {
                     print("NOT AN ARRAY")
                     return
+                }
+                
+                if stationsData.count == 0 {
+                    
+                    self.station.moreData = false
                 }
                 
                 for stations in stationsData {
@@ -266,6 +282,11 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     return
                 }
                 
+                if stationsData.count == 0 {
+                    
+                    self.station.moreData = false
+                }
+                
                 for stations in stationsData {
                     self.station = Radiostation()
                     guard let listeners = stations["total_listeners"].int else {
@@ -359,6 +380,11 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                 guard let stationsData = swiftyJSON.array else {
                     print("NOT AN ARRAY")
                     return
+                }
+                
+                if stationsData.count == 0 {
+                    
+                    self.station.moreData = false
                 }
                 
                 for stations in stationsData {
@@ -529,22 +555,30 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
      } */
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = radioStations.count - 1
-        if indexPath.row == lastElement {
-            page += 1
+        
+        if station.moreData {
+            let lastElement = radioStations.count - 1
+            if indexPath.row == lastElement {
+                page += 1
+                switch filterStatus {
+                case 0:
+                    loadStationsByMostPopular(page: page)
             
-            switch filterStatus {
-            case 0:
-                loadStationsByMostPopular(page: page)
-            case 1:
-                loadStationsByCategory()
-            case 2:
-                loadStationsByCountry(page: page)
-            default:
-                return
+                case 1:
+                    loadStationsByCategory()
+                case 2:
+                    
+                    loadStationsByCountry(page: page)
+                default:
+                    return
+                }
+                
             }
-            
         }
+    }
+    
+    func checkForMoreData() {
+        
     }
     
     
