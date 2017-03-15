@@ -93,7 +93,8 @@ class FavTableViewController: UITableViewController {
         editCellView(cell: cell)
         
         if stations[indexPath.row].avatarUrl != nil && stations[indexPath.row].avatarUrl != "" {
-            cell.avatarImage.af_setImage(withURL: URL(string: stations[indexPath.row].avatarUrl!)!)
+            cell.avatarImage.image = UIImage(data: stations[indexPath.row].imageData as! Data)
+           // cell.avatarImage.af_setImage(withURL: URL(string: stations[indexPath.row].avatarUrl!)!)
         } else {
             cell.avatarImage.image = #imageLiteral(resourceName: "radioAvatar")
         }

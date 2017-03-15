@@ -73,10 +73,6 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             playButton.isEnabled = false
         }
         
-        //Long Tap Guesture for add to fav
-        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addToFav))
-        longPressGesture.minimumPressDuration = 0.5
-        self.tableView.addGestureRecognizer(longPressGesture)
         
         let userDefaults = UserDefaults()
         
@@ -519,6 +515,12 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         
         editCellView(cell: cell)
         
+        //Long Tap Guesture for add to fav
+        let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addToFav))
+        longPressGesture.minimumPressDuration = 0.5
+        cell.addGestureRecognizer(longPressGesture)
+        
+        
         cell.titleLabel.text = radioStations[indexPath.row].name
         if radioStations[indexPath.row].imgURL != "" {
             cell.bgImage.af_setImage(withURL: URL(string:radioStations[indexPath.row].imgURL)!)
@@ -606,14 +608,22 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             print("Long press on table view, not row.")
         }
         else if (longPressureGesture.state == UIGestureRecognizerState.began) {
-            let stationName = radioStations[indexPath!.row].name
-            let stationCountryCode = radioStations[indexPath!.row].country
-            let stationStream = radioStations[indexPath!.row].streamURL
-            let imageURL = radioStations[indexPath!.row].imgURL
-            let stationCategory = radioStations[indexPath!.row].categoryTitle
-            let stationid = radioStations[indexPath!.row].id
             
-            addFavToDB(stationID: stationid, name: stationName, category: stationCategory, avatarURL: imageURL, countryCode: stationCountryCode, streamURL: stationStream)
+                let cell = tableView.cellForRow(at: indexPath!) as! StationsTableViewCell
+                //let cell = tableView.dequeueReusableCell(withIdentifier: "stationCell", for: indexPath!) as! StationsTableViewCell
+            
+                let avatarImage = cell.bgImage.image
+                let stationName = radioStations[indexPath!.row].name
+                let stationCountryCode = radioStations[indexPath!.row].country
+                let stationStream = radioStations[indexPath!.row].streamURL
+                let imageURL = radioStations[indexPath!.row].imgURL
+                let stationCategory = radioStations[indexPath!.row].categoryTitle
+                let stationid = radioStations[indexPath!.row].id
+            
+            
+                let imageData = UIImagePNGRepresentation(avatarImage!) as NSData?
+            
+            addFavToDB(stationID: stationid, name: stationName, category: stationCategory, avatarURL: imageURL, countryCode: stationCountryCode, streamURL: stationStream, image: imageData!)
             
             // print("Long press on row, at \(indexPath!.row)")
             
@@ -628,7 +638,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     //Save station favorated to core data
-    func addFavToDB(stationID: Int32, name:String, category:String, avatarURL: String, countryCode:String, streamURL: String) {
+    func addFavToDB(stationID: Int32, name:String, category:String, avatarURL: String, countryCode:String, streamURL: String, image: NSData) {
         
         let context = getContext()
         
@@ -653,6 +663,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     let entity = NSEntityDescription.entity(forEntityName: "Station", in: context)
                     let station = Station(entity: entity!, insertInto: context)
                     
+                    station.imageData = image
                     station.avatarUrl = avatarURL
                     station.category = category
                     station.countrycode = countryCode
