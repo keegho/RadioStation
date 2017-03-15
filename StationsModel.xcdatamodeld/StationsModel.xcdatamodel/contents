@@ -5,9 +5,10 @@
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="countrycode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stationId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="streamUrl" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Station" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Station" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

@@ -20,17 +20,30 @@ class Radioplayer {
     
     
     func play() {
-        player = AVPlayer(url: URL(string: urlString)!)
-        player.play()
-        isPLaying = true
+        if urlString != "" {
+            if let url = URL(string: urlString) {
+                player = AVPlayer(url: url)
+                player.play()
+                isPLaying = true
+            } else {
+                
+                return
+            }
+
+        } else {
+            
+            return
+        }
         
     }
     
     func pause() {
-        if player != nil && urlString != "" {
-            player = AVPlayer(url: URL(string: urlString)!)
-            player.pause()
-            isPLaying = false
+        if  urlString != "" {
+            if let url = URL(string: urlString) {
+                player = AVPlayer(url: url)
+                player.pause()
+                isPLaying = false
+            }
         }
     }
     

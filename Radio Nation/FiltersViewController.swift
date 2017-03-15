@@ -121,8 +121,8 @@ class FiltersViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         borderCategory.borderWidth = width
         countryTextField.layer.addSublayer(borderCountry)
         countryTextField.layer.masksToBounds = true
-        countryTextField.layer.addSublayer(borderCategory)
-        countryTextField.layer.masksToBounds = true
+        categoryTextfield.layer.addSublayer(borderCategory)
+        categoryTextfield.layer.masksToBounds = true
     }
 
     override func didReceiveMemoryWarning() {

@@ -28,6 +28,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     var filterStatus = 0 //Zero means all
     var page = 1
     
+    var errorMsg = String()
+    
     var flagsNamesArray = [String]()
     var loadedImageName = String()
     
@@ -37,11 +39,15 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.center = view.center
+        activityIndicator.clipsToBounds = true
+        activityIndicator.layer.cornerRadius = 4
+        activityIndicator.backgroundColor = UIColor(red:0.18, green:0.24, blue:0.31, alpha:0.8)
         view.addSubview(activityIndicator)
         
         let f = Bundle.main.url(forResource: "Flags", withExtension: nil)!
@@ -51,7 +57,10 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         for i in 0 ..< longFlagsNamesArray.count {
             flagsNamesArray.append(longFlagsNamesArray[i].lastPathComponent)
         }
-        buttomBar.backgroundColor = UIColor.white
+       // buttomBar.backgroundColor = UIColor(red:0.64, green:0.11, blue:0.13, alpha:0.6)
+       // buttomBar.isTranslucent = true
+       // buttomBar.tintColor = UIColor.white
+        
         if !(Radioplayer.sharedInstance.currentlyPLaying()) {
             buttomBar.isHidden = true
         } else {
@@ -63,10 +72,10 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         //Long Tap Guesture for add to fav
         let longPressGesture:UILongPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addToFav))
         longPressGesture.minimumPressDuration = 0.5
-        // longPressGesture.delegate = self
         self.tableView.addGestureRecognizer(longPressGesture)
         
         let userDefaults = UserDefaults()
+        
         //Checking if there is previous saved filtered data
         //        if let filteredCountryCodeTest = userDefaults.object(forKey: "filteredCountry") as? String {
         //            filteredCountry = filteredCountryCodeTest
@@ -149,6 +158,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         
         station.popularStations(page: page, stationsLimitPerPage: 20) { (data, status, err, msg) in
             if status {
+                
+                
                 let swiftyData = JSON(data)
                 //print(swiftyData)
                 
@@ -170,7 +181,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     self.station.name = stationName
                     // print(stationName)
-                    print("Name:\(self.station.name)")
+                    //print("Name:\(self.station.name)")
                     guard let country = stations["country"].string else {
                         continue
                     }
@@ -179,7 +190,10 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                         continue
                     }
                     self.station.stationWebsite = website
-                    print("Website:\(self.station.stationWebsite)")
+                    //print("Website:\(self.station.stationWebsite)")
+                    
+                    self.station.id = stations["id"].int32!
+                    //print("staionID:\(self.station.id)")
                     
                     
                     let imageURL = stations["image"]["url"].string //else {
@@ -215,8 +229,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                             continue
                         }
                         self.station.streamURL = stream
-                        print("Stream URL:\(self.station.streamURL)")
-                        print(stream)
+                       // print("Stream URL:\(self.station.streamURL)")
+                       // print(stream)
                         guard let bitRate = data["bitrate"].int else {
                             continue
                         }
@@ -229,10 +243,11 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     
                 }
                 self.tableView.reloadData()
-                print(self.radioStations)
+               // print(self.radioStations)
                 self.activityIndicator.stopAnimating()
             } else {
-                print(msg)
+                print(msg!)
+                self.errorMsg = msg!
                 self.activityIndicator.stopAnimating()
             }
         }
@@ -264,7 +279,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     self.station.name = stationName
                     // print(stationName)
-                    print("Name:\(self.station.name)")
+                    //print("Name:\(self.station.name)")
                     guard let country = stations["country"].string else {
                         continue
                     }
@@ -273,7 +288,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                         continue
                     }
                     self.station.stationWebsite = website
-                    print("Website:\(self.station.stationWebsite)")
+                    //print("Website:\(self.station.stationWebsite)")
                     
                     
                     let imageURL = stations["image"]["url"].string //else {
@@ -309,8 +324,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                             continue
                         }
                         self.station.streamURL = stream
-                        print("Stream URL:\(self.station.streamURL)")
-                        print(stream)
+                        //print("Stream URL:\(self.station.streamURL)")
+                        //print(stream)
                         guard let bitRate = data["bitrate"].int else {
                             continue
                         }
@@ -325,7 +340,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
             } else {
-                print(msg)
+                print(msg!)
+                self.errorMsg = msg!
                 self.activityIndicator.stopAnimating()
             }
         })
@@ -358,7 +374,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     self.station.name = stationName
                     // print(stationName)
-                    print("Name:\(self.station.name)")
+                    //print("Name:\(self.station.name)")
                     guard let country = stations["country"].string else {
                         continue
                     }
@@ -367,7 +383,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                         continue
                     }
                     self.station.stationWebsite = website
-                    print("Website:\(self.station.stationWebsite)")
+                    //print("Website:\(self.station.stationWebsite)")
                     
                     
                     let imageURL = stations["image"]["url"].string //else {
@@ -403,8 +419,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                             continue
                         }
                         self.station.streamURL = stream
-                        print("Stream URL:\(self.station.streamURL)")
-                        print(stream)
+                        //print("Stream URL:\(self.station.streamURL)")
+                        //print(stream)
                         guard let bitRate = data["bitrate"].int else {
                             continue
                         }
@@ -419,7 +435,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                 self.tableView.reloadData()
                 self.activityIndicator.stopAnimating()
             } else {
-                print(msg)
+                print(msg!)
+                self.errorMsg = msg!
                 self.activityIndicator.stopAnimating()
             }
         })
@@ -432,7 +449,37 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        let numOfSections: Int = 1
+        if radioStations.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            //numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            
+            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            
+            let noDataLabel = UILabel(frame: CGRect(x: (bgView.frame.midX - (bgView.bounds.width)*0.5), y: ((bgView.frame.midY + bgView.bounds.height/2)*0.50), width: bgView.bounds.width, height: bgView.bounds.height/3))
+            
+            //This algorithm not working yet
+            if errorMsg == "" {
+                noDataLabel.text = "Loading Stations..."
+            } else if radioStations.count == 0 {
+                noDataLabel.text = "No Stations available"
+            } else {
+                noDataLabel.text = errorMsg
+            }
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            
+            tableView.separatorStyle  = .none
+            bgView.addSubview(noDataLabel)
+            tableView.backgroundView  = bgView
+            
+        }
+        return numOfSections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -530,8 +577,9 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             let stationStream = radioStations[indexPath!.row].streamURL
             let imageURL = radioStations[indexPath!.row].imgURL
             let stationCategory = radioStations[indexPath!.row].categoryTitle
+            let stationid = radioStations[indexPath!.row].id
             
-            addFavToDB(name: stationName, category: stationCategory, avatarURL: imageURL, countryCode: stationCountryCode, streamURL: stationStream)
+            addFavToDB(stationID: stationid, name: stationName, category: stationCategory, avatarURL: imageURL, countryCode: stationCountryCode, streamURL: stationStream)
             
             // print("Long press on row, at \(indexPath!.row)")
             
@@ -546,31 +594,54 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     //Save station favorated to core data
-    func addFavToDB(name:String, category:String, avatarURL: String, countryCode:String, streamURL: String) {
+    func addFavToDB(stationID: Int32, name:String, category:String, avatarURL: String, countryCode:String, streamURL: String) {
         
         let context = getContext()
         
-        let entity = NSEntityDescription.entity(forEntityName: "Station", in: context)
-        let station = Station(entity: entity!, insertInto: context)
-        
-        station.avatarUrl = avatarURL
-        station.category = category
-        station.countrycode = countryCode
-        station.streamUrl = streamURL
-        station.name = name
-        
-        //        trans.setValue(name, forKey: "name")
-        //        trans.setValue(category, forKey: "category")
-        //        trans.setValue(avatarURL, forKey: "avatarUrl")
-        //        trans.setValue(countryCode, forKey: "countrycode")
-        //        trans.setValue(streamURL, forKey: "streamUrl")
+        //Fetch request from db
+        let fetchRequest: NSFetchRequest<Station> = Station.fetchRequest()
+        //Check for a certain query
+        let predicate = NSPredicate(format: "stationId == %d", stationID)
+        fetchRequest.predicate = predicate
         
         do {
-            try context.save()
-            print("Saved")
-        } catch let err as Error? {
-            print("Error not saved:", err!)
-        }
+            
+            let results = try getContext().fetch(fetchRequest)
+                
+                if results.count > 0 {
+                    
+                    //Don't save
+                    print("Already exists in fav")
+                    
+                //Continue to save
+                } else {
+                    
+                    let entity = NSEntityDescription.entity(forEntityName: "Station", in: context)
+                    let station = Station(entity: entity!, insertInto: context)
+                    
+                    station.avatarUrl = avatarURL
+                    station.category = category
+                    station.countrycode = countryCode
+                    station.streamUrl = streamURL
+                    station.name = name
+                    station.stationId = stationID
+                    
+                    
+                    //Saving
+                    do {
+                        try context.save()
+                        print("Saved")
+                    } catch let err as Error? {
+                        print("Error not saved:", err!)
+                    }
+
+                }
+
+            } catch let err as Error? {
+                
+                print("Error fetching results", err!)
+            }
+ 
     }
 
 

@@ -16,6 +16,8 @@ class FavTableViewController: UITableViewController {
     var stations = [Station]()
     var loadedImageName = String()
     
+   // var backgroundView: UIView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       //  emptyTableView.isHidden = true
@@ -42,7 +44,40 @@ class FavTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        let numOfSections: Int = 1
+        if stations.count > 0
+        {
+            tableView.separatorStyle = .singleLine
+            //numOfSections            = 1
+            tableView.backgroundView = nil
+        }
+        else
+        {
+            //Draw a view in the middle of the screen + add image and lable to it and show it on the tableViewBG
+            let bgView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            
+            let imageView = UIImageView(frame: CGRect(x: (bgView.frame.midX - (bgView.bounds.width/3)*0.5) , y: ((bgView.frame.midY + bgView.bounds.height/3)*0.45), width: bgView.bounds.width/3, height: bgView.bounds.height/3))
+            
+            imageView.contentMode = .scaleAspectFit
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = imageView.frame.size.width/2
+            imageView.image = #imageLiteral(resourceName: "addFav")
+            tableView.separatorStyle  = .none
+            
+            
+            
+            let noDataLabel = UILabel(frame: CGRect(x: (bgView.frame.midX - (bgView.bounds.width)*0.5), y: ((bgView.frame.midY + bgView.bounds.height/2)*0.50), width: bgView.bounds.width, height: bgView.bounds.height/3))
+            noDataLabel.text          = "No favorites added"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+
+            bgView.addSubview(imageView)
+            bgView.addSubview(noDataLabel)
+            tableView.backgroundView = bgView
+        }
+        
+        return numOfSections
+        
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,7 +122,6 @@ class FavTableViewController: UITableViewController {
         //        cell.barDescriptionField.textContainer.lineBreakMode = NSLineBreakMode.byTruncatingTail
         
     }
-
  
 
     /*

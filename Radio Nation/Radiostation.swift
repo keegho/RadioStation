@@ -11,6 +11,7 @@ import Alamofire
 
 class Radiostation {
     
+    var id: Int32
     var name: String
     var country: String
     var imgURL: String
@@ -46,6 +47,7 @@ class Radiostation {
     
     init() {
         
+        id = Int32()
         name = String()
         country = String()
         imgURL = String()
