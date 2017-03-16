@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1913B79C1E74D71D00A71624 /* Flags in Resources */ = {isa = PBXBuildFile; fileRef = 1913B79B1E74D71D00A71624 /* Flags */; };
+		193AFE1F1E79F2C100FD9032 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193AFE1E1E79F2C100FD9032 /* CardView.swift */; };
+		193AFE211E7A137700FD9032 /* DesignUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193AFE201E7A137700FD9032 /* DesignUITextField.swift */; };
 		1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C01E771AC300005947 /* FavTableViewController.swift */; };
 		1977A1C31E771B0000005947 /* FavTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C21E771B0000005947 /* FavTableViewCell.swift */; };
 		1977A1C61E77344200005947 /* StationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1977A1C41E77344200005947 /* StationsModel.xcdatamodeld */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		1913B79B1E74D71D00A71624 /* Flags */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Flags; sourceTree = "<group>"; };
+		193AFE1E1E79F2C100FD9032 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		193AFE201E7A137700FD9032 /* DesignUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DesignUITextField.swift; sourceTree = "<group>"; };
 		1977A1C01E771AC300005947 /* FavTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewController.swift; sourceTree = "<group>"; };
 		1977A1C21E771B0000005947 /* FavTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavTableViewCell.swift; sourceTree = "<group>"; };
 		1977A1C51E77344200005947 /* StationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StationsModel.xcdatamodel; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 				1977A1C41E77344200005947 /* StationsModel.xcdatamodeld */,
 				1992C03F1E777C05006D880F /* StationsViewController.swift */,
 				1992C0411E777CB5006D880F /* StationsTableViewCell.swift */,
+				193AFE1E1E79F2C100FD9032 /* CardView.swift */,
+				193AFE201E7A137700FD9032 /* DesignUITextField.swift */,
 			);
 			path = "Radio Nation";
 			sourceTree = "<group>";
@@ -267,12 +273,14 @@
 				1977A1C61E77344200005947 /* StationsModel.xcdatamodeld in Sources */,
 				19A005471E735A7600682915 /* Helper.swift in Sources */,
 				1992C0421E777CB5006D880F /* StationsTableViewCell.swift in Sources */,
+				193AFE211E7A137700FD9032 /* DesignUITextField.swift in Sources */,
 				19FD791E1E731D380031AD36 /* Radioplayer.swift in Sources */,
 				19FD790B1E731BE30031AD36 /* MainViewController.swift in Sources */,
 				1992C0401E777C05006D880F /* StationsViewController.swift in Sources */,
 				19A0054B1E74BDBD00682915 /* FiltersViewController.swift in Sources */,
 				19FD79091E731BE30031AD36 /* AppDelegate.swift in Sources */,
 				1977A1C11E771AC300005947 /* FavTableViewController.swift in Sources */,
+				193AFE1F1E79F2C100FD9032 /* CardView.swift in Sources */,
 				1977A1C31E771B0000005947 /* FavTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

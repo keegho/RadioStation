@@ -18,6 +18,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet var tableView: UITableView!
     @IBOutlet var pauseButton: UIBarButtonItem!
     @IBOutlet var playButton: UIBarButtonItem!
+
     
     var station = Radiostation()
     var radioStations = [Radiostation]()
@@ -73,6 +74,10 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             playButton.isEnabled = false
         }
         
+
+        
+        
+        
         
         let userDefaults = UserDefaults()
         
@@ -120,7 +125,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(_ animated: Bool) {
         
-       // station.moreData = true
+        
         if Radioplayer.sharedInstance.currentlyPLaying() {
             
             buttomBar.isHidden = false
@@ -133,6 +138,8 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             playButton.isEnabled = true
             buttomBar.isHidden = true
         }
+        
+        tableView.reloadData()
         
     }
 
@@ -321,6 +328,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     //                    self.station.thumbURL = thumbnailURL
                     // print("THUMBNAIL:\(thumbnailURL)")
                     // print(imageURL)
+                    self.station.id = stations["id"].int32!
                     
                     let category = stations["categories"].array
                     
@@ -421,6 +429,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                     //                    self.station.thumbURL = thumbnailURL
                     // print("THUMBNAIL:\(thumbnailURL)")
                     // print(imageURL)
+                    self.station.id = stations["id"].int32!
                     
                     let category = stations["categories"].array
                     
@@ -530,9 +539,29 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         
         loadedImageName = (radioStations[indexPath.row].country).lowercased() + ".png"
         cell.countryFlagImageView.image = UIImage(named: loadedImageName)
-        
+        cell.categoryLabel.text = radioStations[indexPath.row].categoryTitle
         cell.countryLabel.text = radioStations[indexPath.row].country
+        
+        if let bitRate = radioStations[indexPath.row].bitRate {
+            cell.bitRateLabel.text = String(bitRate)
+        }
+        
+        if isFavorted(stationID: radioStations[indexPath.row].id) {
+            cell.heartIcon.image = #imageLiteral(resourceName: "heartFav")
+        } else {
+            cell.heartIcon.image = #imageLiteral(resourceName: "heartNoFav")
+        }
+
         cell.numberOfListeners.text = String(radioStations[indexPath.row].listeners)
+        
+//        let userDefaults = UserDefaults.standard
+//        if let img = cell.bgImage.image {
+//            
+//            if let savingImage = UIImagePNGRepresentation(img) {
+//                userDefaults.set(savingImage, forKey: "avatarImg")
+//            }
+//        }
+        //radioStations[indexPath.row].image = cell.bgImage.image!
         
         return cell
     }
@@ -543,18 +572,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         performSegue(withIdentifier: "radioDetail", sender: radioStations[indexPath.row])
     }
     
-    
-    /* override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-     
-     let addFavIcon = UITableViewRowAction(style: .normal, title: "Favorite") { (action,index) -> Void in
-     
-     
-     }
-     let iconImage = UIImageView(image: #imageLiteral(resourceName: "star"))
-     iconImage.contentMode = .scaleAspectFill
-     addFavIcon.backgroundColor = UIColor(patternImage: iconImage.image!)
-     return [addFavIcon]
-     } */
+
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
@@ -589,6 +607,9 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.bgImage.layer.cornerRadius = cell.bgImage.frame.width/2
         //cell.bgImage.layer.borderWidth = 1.5
         // cell.bgImage.layer.borderColor = UIColor(red:0.60, green:0.07, blue:0.71, alpha:1.0).cgColor
+        cell.titleLabel.clipsToBounds = true
+        cell.titleLabel.layer.cornerRadius = 4
+        cell.titleLabel.layer.masksToBounds = false
         cell.bgImage.clipsToBounds = true
         //        cell.barCategoryField.layer.cornerRadius = cell.barCategoryField.frame.width/2
         //        cell.barLogoImageView.layer.cornerRadius = cell.barLogoImageView.frame.width/2
@@ -600,6 +621,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
+    //Function after long press detection on any table row
     func addToFav(longPressureGesture: UILongPressGestureRecognizer) {
         
         let p = longPressureGesture.location(in: self.tableView)
@@ -611,7 +633,7 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
             
                 let cell = tableView.cellForRow(at: indexPath!) as! StationsTableViewCell
                 //let cell = tableView.dequeueReusableCell(withIdentifier: "stationCell", for: indexPath!) as! StationsTableViewCell
-            
+                cell.heartIcon.image = #imageLiteral(resourceName: "heartFav")
                 let avatarImage = cell.bgImage.image
                 let stationName = radioStations[indexPath!.row].name
                 let stationCountryCode = radioStations[indexPath!.row].country
@@ -687,6 +709,30 @@ class StationsViewController: UIViewController, UITableViewDelegate, UITableView
                 print("Error fetching results", err!)
             }
  
+    }
+    
+    //Check if favorated
+    func isFavorted(stationID: Int32) -> Bool {
+        
+        //Fetch request from db
+        let fetchRequest: NSFetchRequest<Station> = Station.fetchRequest()
+        //Check for a certain query
+        let predicate = NSPredicate(format: "stationId == %d", stationID)
+        fetchRequest.predicate = predicate
+        
+        do {
+            
+            let results = try getContext().fetch(fetchRequest)
+            
+            if results.count > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            
+            return false
+        }
     }
 
 

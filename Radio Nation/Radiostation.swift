@@ -19,8 +19,9 @@ class Radiostation {
     var listeners: Int
     var categoryTitle: String
     var streamURL: String
-    var bitRate: Int
-    var stationWebsite: String
+    var bitRate: Int?
+    var stationWebsite: String?
+    //var image: UIImage
     
     var categoryStrcut: Categories
     var countryStruct: Countries
@@ -62,6 +63,7 @@ class Radiostation {
         dribleApiKey = Helper.sharedInstance.getApiKey()
         categoryStrcut = Categories()
         countryStruct = Countries()
+        //image = UIImage()
     }
     
     //Get popular stations

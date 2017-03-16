@@ -29,6 +29,15 @@ class MainViewController: UIViewController {
        // navigationController?.navigationBar.isHidden = false
         navigationController?.setNavigationBarHidden(false, animated: false)
         
+//        let userDefaults = UserDefaults.standard
+//        if let rawImage = userDefaults.data(forKey: "avatarImg") {
+//            radioStationImage.image = UIImage(data: rawImage)
+//        } else {
+//            radioStationImage.image = #imageLiteral(resourceName: "radioAvatar")
+//        }
+        
+        
+        
         if radioStation.imgURL != "" {
             radioStationImage.af_setImage(withURL: URL(string: radioStation.imgURL)!)
         } else {
